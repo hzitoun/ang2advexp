@@ -17,8 +17,8 @@ import {WeatherItem} from "../weather-item";
     template : `
     <section class="weather-search">
          <form [ngFormModel]="weatherForm" (ngSubmit) = "onSubmit(weatherForm.value)">
-           <validation-message field="cityName"></validation-message>
-            <input #cityName ngControl="cityName" type="text" placeholder="search by city..." required/>
+            <input ngControl="cityName" type="text" placeholder="search by city..." required/>
+            <validation-message field="cityName"></validation-message>
             <button type="submit" [disabled]="!weatherForm.valid">Add city</button>
         </form>
          <div>
