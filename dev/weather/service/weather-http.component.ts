@@ -3,7 +3,7 @@
  */
 import {Component} from 'angular2/core';
 import {OnInit} from "angular2/core";
-import {ControlMessages} from "../../validtion/control-messages.component";
+import {ControlMessages} from "../../validation/control-messages.component";
 import {WeatherHttpService} from "./weather-http.service";
 import {ControlGroup} from "angular2/common";
 import {FormBuilder} from "angular2/common";
@@ -17,8 +17,8 @@ import {WeatherItem} from "../weather-item";
     template : `
     <section class="weather-search">
          <form [ngFormModel]="weatherForm" (ngSubmit) = "onSubmit(weatherForm.value)">
+           <validation-message field="cityName"></validation-message>
             <input #cityName ngControl="cityName" type="text" placeholder="search by city..." required/>
-            <validation-message field="cityName"></validation-message>
             <button type="submit" [disabled]="!weatherForm.valid">Add city</button>
         </form>
          <div>
@@ -44,7 +44,7 @@ export class WeatherHttpComponent implements OnInit{
     public onSubmit(formValue){
             this._service.getWeatherByCityName(formValue.cityName)
                 .subscribe(
-                    data =>  this.addEltToList(JSON.stringify(data)),
+                    data =>  this.addEltToList(data),
                     err => console.log(err),
                     ()  => console.log('finished'));
     }
@@ -60,7 +60,7 @@ export class WeatherHttpComponent implements OnInit{
     }
 
     get city(){
-     return this.weatherForm.value.cityName + ', Fr';
+     return this.weatherForm.value.cityName;
     }
 
 
